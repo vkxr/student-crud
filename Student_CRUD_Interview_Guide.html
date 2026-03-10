@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student CRUD App — Complete Interview Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: #fff;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 40px 0 10px;
+            color: #111;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 8px;
+            page-break-after: avoid;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 30px 0 10px;
+            color: #1e40af;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 20px 0 8px;
+            color: #333;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        ul,
+        ol {
+            margin: 8px 0 8px 24px;
+        }
+
+        li {
+            margin: 4px 0;
+        }
+
+        strong {
+            color: #111;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #e11d48;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-size: 0.85em;
+            line-height: 1.6;
+            page-break-inside: avoid;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.92em;
+            page-break-inside: avoid;
+        }
+
+        th {
+            background: #3b82f6;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        blockquote {
+            border-left: 4px solid #3b82f6;
+            background: #eff6ff;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #1e40af;
+            page-break-inside: avoid;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e2e8f0;
+            margin: 30px 0;
+        }
+
+        .tip {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .file-header {
+            background: #dbeafe;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin: 20px 0 10px;
+            font-weight: 600;
+            font-size: 1.1em;
+            page-break-after: avoid;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        @media print {
+            body {
+                padding: 20px;
+                font-size: 11pt;
+            }
+
+            pre {
+                font-size: 9pt;
+            }
+
+            h1 {
+                font-size: 18pt;
+            }
+
+            h2 {
+                font-size: 15pt;
+            }
+
+            h3 {
+                font-size: 12pt;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📚 Student CRUD App — Complete Interview Guide</h1>
+    <p><em>Everything you need to explain this codebase confidently in an interview.</em></p>
+
+    <hr>
+
+    <h2>Project Paths</h2>
+    <table>
+        <tr>
+            <th>Part</th>
+            <th>Path</th>
+        </tr>
+        <tr>
+            <td><strong>Frontend</strong></td>
+            <td><code>student-crud-app/</code></td>
+        </tr>
+        <tr>
+            <td><strong>Backend</strong></td>
+            <td><code>student-crud-app/backend/</code></td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h1>PART 1: PROJECT OVERVIEW</h1>
+
+    <h2>What does this app do?</h2>
+    <p>This is a <strong>Student Manager</strong> — a CRUD application:</p>
+    <ul>
+        <li><strong>C</strong>reate — add new students via a modal form</li>
+        <li><strong>R</strong>ead — view all students in a table</li>
+        <li><strong>U</strong>pdate — edit existing students (form pre-fills)</li>
+        <li><strong>D</strong>elete — remove students with confirmation dialog</li>
+    </ul>
+    <p>Plus: <strong>search/filter</strong>, <strong>Excel export</strong>, and <strong>localStorage
+            persistence</strong>.</p>
+
+    <h2>Interview Answer: "Walk me through this project"</h2>
+    <blockquote>
+        "I built a Student Manager using React with TypeScript and Tailwind CSS. It lets you add, edit, and delete
+        students from a table. The data persists using localStorage so it survives page refreshes. I also added search
+        filtering and Excel export using the xlsx library. On the backend side, I built a REST API with Express,
+        TypeScript, Prisma ORM connected to a Neon PostgreSQL cloud database, with Zod schema validation for incoming
+        requests."
+    </blockquote>
+
+    <hr>
+
+    <h2>Tech Stack — What & Why</h2>
+    <table>
+        <tr>
+            <th>Tech</th>
+            <th>What it is</th>
+            <th>Why I used it</th>
+        </tr>
+        <tr>
+            <td><strong>React</strong></td>
+            <td>UI library by Meta</td>
+            <td>Component-based, huge ecosystem, industry standard</td>
+        </tr>
+        <tr>
+            <td><strong>Vite</strong></td>
+            <td>Build tool / dev server</td>
+            <td>Faster than CRA, instant hot reload</td>
+        </tr>
+        <tr>
+            <td><strong>TypeScript</strong></td>
+            <td>JavaScript with types</td>
+            <td>Catch bugs at compile time, better autocomplete</td>
+        </tr>
+        <tr>
+            <td><strong>Tailwind CSS</strong></td>
+            <td>Utility-first CSS framework</td>
+            <td>Write styles in JSX, no separate CSS files</td>
+        </tr>
+        <tr>
+            <td><strong>xlsx</strong></td>
+            <td>Excel file library</td>
+            <td>Export data to .xlsx format</td>
+        </tr>
+        <tr>
+            <td><strong>Express</strong></td>
+            <td>Node.js web framework</td>
+            <td>Minimal, flexible, most popular for REST APIs</td>
+        </tr>
+        <tr>
+            <td><strong>Prisma</strong></td>
+            <td>Database ORM</td>
+            <td>Type-safe queries, migrations, auto-generated client</td>
+        </tr>
+        <tr>
+            <td><strong>PostgreSQL</strong></td>
+            <td>Relational database</td>
+            <td>Reliable, free tier on Neon</td>
+        </tr>
+        <tr>
+            <td><strong>Zod</strong></td>
+            <td>Schema validation</td>
+            <td>Runtime validation with clear error messages</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h1>PART 2: FRONTEND — FILE BY FILE</h1>
+
+    <h2>Folder Structure</h2>
+    <pre><code>src/
+├── components/
+│   ├── StudentTable.tsx      ← displays the data table
+│   ├── StudentForm.tsx       ← modal form for add/edit
+│   ├── ConfirmDialog.tsx     ← delete confirmation popup
+│   └── SearchBar.tsx         ← search input field
+├── services/
+│   └── studentApi.ts         ← API client (optional)
+├── utils/
+│   └── exportExcel.ts        ← Excel download helper
+├── types/
+│   └── student.ts            ← TypeScript interfaces
+├── data/
+│   └── students.json         ← initial sample data
+├── App.tsx                   ← main component
+├── main.tsx                  ← React entry point
+└── index.css                 ← Tailwind imports</code></pre>
+
+    <hr>
+
+    <div class="file-header">📄 types/student.ts — TypeScript Interfaces</div>
+
+    <pre><code>export interface Student {
+  id: number
+  name: string
+  email: string
+  age: number
+  createdAt?: string
+}
+
+export interface StudentFormData {
+  name: string
+  email: string
+  age: number
+}</code></pre>
+
+    <h3>What is an interface?</h3>
+    <p>An <strong>interface</strong> defines the shape of an object. It tells TypeScript: "any object of this type MUST
+        have these fields with these types."</p>
+
+    <h3>Why two interfaces?</h3>
+    <ul>
+        <li><code>Student</code> has <code>id</code> and optional <code>createdAt</code> — a <strong>saved
+                student</strong></li>
+        <li><code>StudentFormData</code> only has name, email, age — what the <strong>form submits</strong> (ID is
+            generated separately)</li>
+    </ul>
+
+    <h3>Interview answer:</h3>
+    <blockquote>"I created two interfaces because the form doesn't know the student's ID when submitting — the ID is
+        generated by Date.now() on the frontend or autoincrement() on the database. Separating them makes the types more
+        precise."</blockquote>
+
+    <h3>What does <code>?</code> mean?</h3>
+    <p><code>createdAt?: string</code> means this field is <strong>optional</strong> — it might exist or might not.</p>
+
+    <hr>
+
+    <div class="file-header">📄 data/students.json — Sample Data</div>
+
+    <pre><code>[
+  { "id": 1, "name": "Rahul Sharma", "email": "rahul.sharma@gmail.com", "age": 21 },
+  { "id": 2, "name": "Priya Patel", "email": "priya.patel@yahoo.com", "age": 22 },
+  { "id": 3, "name": "Amit Kumar", "email": "amit.kumar@outlook.com", "age": 20 },
+  { "id": 4, "name": "Sneha Reddy", "email": "sneha.reddy@gmail.com", "age": 23 },
+  { "id": 5, "name": "Vikram Singh", "email": "vikram.singh@hotmail.com", "age": 21 },
+  { "id": 6, "name": "Ananya Gupta", "email": "ananya.gupta@gmail.com", "age": 22 }
+]</code></pre>
+
+    <h3>Why use a JSON file?</h3>
+    <p>Acts as <strong>initial seed data</strong>. On first visit (localStorage empty), the app loads this data. After
+        that, localStorage takes over.</p>
+
+    <blockquote>"I used a local JSON file as initial data so the app has something to show on first load. Once the user
+        adds/edits/deletes, localStorage becomes the source of truth."</blockquote>
+
+    <hr>
+
+    <div class="file-header">📄 App.tsx — The Brain of the Application</div>
+    <p>This is the most important file. Let's break it down section by section.</p>
+
+    <h3>Imports</h3>
+    <pre><code>import { useState, useEffect } from 'react'
+import StudentTable from './components/StudentTable'
+import StudentForm from './components/StudentForm'
+import ConfirmDialog from './components/ConfirmDialog'
+import SearchBar from './components/SearchBar'
+import { exportToExcel } from './utils/exportExcel'
+import initialData from './data/students.json'
+import type { Student, StudentFormData } from './types/student'</code></pre>
+
+    <h3>What is <code>import type</code>?</h3>
+    <p><code>import type</code> tells TypeScript: "I only need this for type checking, don't include it in the
+        JavaScript bundle." It's a performance optimization.</p>
+
+    <hr>
+
+    <h3>localStorage Helper Functions</h3>
+    <pre><code>const STORAGE_KEY = 'students_data'
+
+function loadStudents(): Student[] {
+  const saved = localStorage.getItem(STORAGE_KEY)
+  if (saved) {
+    return JSON.parse(saved)
+  }
+  return initialData as Student[]
+}
+
+function saveStudents(students: Student[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(students))
+}</code></pre>
+
+    <h3>What is localStorage?</h3>
+    <ul>
+        <li><strong>localStorage</strong> is a browser API that stores key-value pairs</li>
+        <li>Data persists even when you close the browser</li>
+        <li>It only stores strings, so we <code>JSON.stringify()</code> to save and <code>JSON.parse()</code> to load
+        </li>
+        <li>Maximum ~5MB per domain</li>
+    </ul>
+
+    <h3>How does the fallback work?</h3>
+    <ol>
+        <li>Try to read from localStorage</li>
+        <li>If nothing stored (first visit), use JSON file data</li>
+        <li>Every time students change, save to localStorage</li>
+    </ol>
+
+    <blockquote>"localStorage gives us persistence without a backend. I save the students array as a JSON string
+        whenever it changes, and load it back on page load. If it's the first visit, I fall back to the initial JSON
+        data."</blockquote>
+
+    <hr>
+
+    <h3>State Variables</h3>
+    <pre><code>const [students, setStudents] = useState&lt;Student[]&gt;([])
+const [loading, setLoading] = useState(true)
+const [searchQuery, setSearchQuery] = useState('')
+const [isFormOpen, setIsFormOpen] = useState(false)
+const [editingStudent, setEditingStudent] = useState&lt;Student | null&gt;(null)
+const [deleteTarget, setDeleteTarget] = useState&lt;Student | null&gt;(null)</code></pre>
+
+    <h3>What is useState?</h3>
+    <p><code>useState</code> is a React <strong>Hook</strong> that lets you add state to functional components. Returns
+        a <strong>value</strong> and a <strong>setter function</strong>.</p>
+    <pre><code>const [value, setValue] = useState(initialValue)</code></pre>
+
+    <h3>What is <code>&lt;Student[]&gt;</code>?</h3>
+    <p>A <strong>generic type parameter</strong>. Tells TypeScript the state will hold an array of Student objects.</p>
+
+    <h3>What is <code>Student | null</code>?</h3>
+    <p>A <strong>union type</strong>. The value can be either a Student object OR null. Used for
+        <code>editingStudent</code> because:</p>
+    <ul>
+        <li>No student being edited → <code>null</code></li>
+        <li>Editing → the actual Student object</li>
+    </ul>
+
+    <h3>Why not use Redux?</h3>
+    <blockquote>"For a small app like this, useState is enough. Redux adds complexity (actions, reducers, store) that
+        isn't needed when all state lives in one component. I'd use Redux or Zustand if the app grew larger."
+    </blockquote>
+
+    <hr>
+
+    <h3>useEffect #1 — Loading Data on Mount</h3>
+    <pre><code>useEffect(() => {
+  const timer = setTimeout(() => {
+    setStudents(loadStudents())
+    setLoading(false)
+  }, 1500)
+  return () => clearTimeout(timer)
+}, [])</code></pre>
+
+    <h3>What is useEffect?</h3>
+    <p><code>useEffect</code> runs <strong>side effects</strong> — things outside React's rendering cycle like fetching
+        data, timers, subscriptions.</p>
+
+    <h3>What does <code>[]</code> (empty array) mean?</h3>
+    <p>The <strong>dependency array</strong>. <code>[]</code> means "run only once, when component mounts."
+        <code>[searchQuery]</code> would run every time searchQuery changes.</p>
+
+    <h3>What is the cleanup function?</h3>
+    <p><code>return () => clearTimeout(timer)</code> runs when the component <strong>unmounts</strong>. Prevents memory
+        leaks if user navigates away before the 1.5s timer finishes.</p>
+
+    <blockquote>"I use useEffect with an empty dependency array to load data once on mount. The 1.5-second delay
+        simulates an API call. The cleanup function cancels the timer if the component unmounts early, preventing memory
+        leaks."</blockquote>
+
+    <hr>
+
+    <h3>useEffect #2 — Persisting to localStorage</h3>
+    <pre><code>useEffect(() => {
+  if (!loading) {
+    saveStudents(students)
+  }
+}, [students, loading])</code></pre>
+
+    <h3>Why the <code>if (!loading)</code> check?</h3>
+    <p>Without it, the first render would save an empty array <code>[]</code> to localStorage before data loads.</p>
+
+    <h3>Why <code>[students, loading]</code>?</h3>
+    <p>Re-runs whenever students or loading changes. Every add/edit/delete changes <code>students</code> → effect runs →
+        saved to localStorage.</p>
+
+    <hr>
+
+    <h3>Filtering Logic</h3>
+    <pre><code>const filteredStudents = students.filter((s) => {
+  const q = searchQuery.toLowerCase()
+  return s.name.toLowerCase().includes(q) || s.email.toLowerCase().includes(q)
+})</code></pre>
+
+    <h3>What does <code>.filter()</code> do?</h3>
+    <p>Creates a <strong>new array</strong> containing only elements that pass the test. Doesn't modify the original.
+    </p>
+
+    <h3>Why <code>.toLowerCase()</code>?</h3>
+    <p>Makes search <strong>case-insensitive</strong>. Without it, "rahul" wouldn't match "Rahul".</p>
+
+    <blockquote>"I derive filteredStudents from the students array. It's not stored in state because it can be computed.
+        This follows React's 'derived state' principle — don't store what you can calculate."</blockquote>
+
+    <hr>
+
+    <h3>CRUD Handler — Add</h3>
+    <pre><code>const handleAdd = (data: StudentFormData) => {
+  const newStudent: Student = {
+    ...data,
+    id: Date.now(),
+    createdAt: new Date().toISOString(),
+  }
+  setStudents((prev) => [...prev, newStudent])
+  setIsFormOpen(false)
+}</code></pre>
+
+    <h3>What is the spread operator <code>...</code>?</h3>
+    <p><code>...data</code> copies all properties from data into the new object.</p>
+
+    <h3>Why <code>Date.now()</code> for ID?</h3>
+    <p>Returns current timestamp in milliseconds. Quick unique ID without a library. In production, the database
+        generates IDs.</p>
+
+    <h3>What is the functional update pattern?</h3>
+    <p><code>setStudents((prev) => [...prev, newStudent])</code> — passes a function that receives previous state. Safer
+        when multiple updates happen simultaneously.</p>
+
+    <hr>
+
+    <h3>CRUD Handler — Update</h3>
+    <pre><code>const handleUpdate = (data: StudentFormData) => {
+  if (!editingStudent) return
+  setStudents((prev) =>
+    prev.map((s) => (s.id === editingStudent.id ? { ...s, ...data } : s))
+  )
+  setEditingStudent(null)
+  setIsFormOpen(false)
+}</code></pre>
+
+    <h3>What does <code>.map()</code> do here?</h3>
+    <p>Creates new array. For each student: if ID matches → replace with updated data; otherwise → keep original.</p>
+
+    <h3>Why <code>{ ...s, ...data }</code>?</h3>
+    <p><code>data</code> has name, email, age. Student also needs id, createdAt. Spread copies original fields first,
+        then overwrites with form data.</p>
+
+    <blockquote>"I use .map() to create a new array where only the matching student is updated. This is an immutable
+        update pattern — I never mutate the original array directly. React needs new references to detect changes."
+    </blockquote>
+
+    <hr>
+
+    <h3>CRUD Handler — Delete</h3>
+    <pre><code>const handleDelete = () => {
+  if (!deleteTarget) return
+  setStudents((prev) => prev.filter((s) => s.id !== deleteTarget.id))
+  setDeleteTarget(null)
+}</code></pre>
+    <p><code>.filter()</code> returns a new array with all students <strong>except</strong> the one with the matching
+        ID.</p>
+
+    <hr>
+
+    <h3>Loading Screen (Conditional Rendering)</h3>
+    <pre><code>if (loading) {
+  return (
+    &lt;div className="min-h-screen flex items-center justify-center"&gt;
+      &lt;div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" /&gt;
+      &lt;p&gt;Loading students...&lt;/p&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+    <p><strong>Conditional rendering</strong>: return different JSX based on a condition. <code>animate-spin</code> is a
+        Tailwind class that applies a CSS rotation animation.</p>
+
+    <hr>
+
+    <div class="file-header">📄 components/StudentForm.tsx — Modal Form</div>
+
+    <h3>1. Modal Pattern</h3>
+    <pre><code>if (!isOpen) return null</code></pre>
+    <p>When <code>isOpen</code> is false → render nothing. When true → full modal.</p>
+
+    <h3>2. Pre-filling for Edit Mode</h3>
+    <pre><code>useEffect(() => {
+  if (editingStudent) {
+    setName(editingStudent.name)
+    setEmail(editingStudent.email)
+    setAge(editingStudent.age.toString())
+  } else {
+    setName('')
+    setEmail('')
+    setAge('')
+  }
+  setErrors({})
+}, [editingStudent, isOpen])</code></pre>
+    <p>Watches <code>editingStudent</code> and <code>isOpen</code>. Editing → fill fields. Adding → clear fields.</p>
+
+    <h3>3. Validation</h3>
+    <pre><code>const validate = (): Record&lt;string, string&gt; => {
+  const errs: Record&lt;string, string&gt; = {}
+  if (!name.trim()) errs.name = 'Name is required'
+  if (!/\S+@\S+\.\S+/.test(email)) errs.email = 'Enter valid email'
+  if (isNaN(Number(age)) || Number(age) &lt;= 0) errs.age = 'Age must be positive'
+  return errs
+}</code></pre>
+
+    <h3>What is <code>Record&lt;string, string&gt;</code>?</h3>
+    <p>TypeScript utility type for an object with string keys and string values. Example:
+        <code>{ name: "Required" }</code></p>
+
+    <h3>What does the email regex do?</h3>
+    <p><code>/\S+@\S+\.\S+/</code> checks: something@something.something. Not perfect but reasonable for assignments.
+    </p>
+
+    <h3>What is <code>e.preventDefault()</code>?</h3>
+    <p>Stops the browser's default form submission (page reload) so React handles it in JavaScript.</p>
+
+    <blockquote>"The form works in two modes — add and edit. useEffect watches editingStudent and pre-fills fields when
+        editing. Validation runs on submit, returning an errors object displayed as inline messages."</blockquote>
+
+    <hr>
+
+    <div class="file-header">📄 components/StudentTable.tsx — Data Table</div>
+
+    <h3>Empty State</h3>
+    <pre><code>if (students.length === 0) {
+  return &lt;div&gt;No students found 😕&lt;/div&gt;
+}</code></pre>
+    <p>Always handle the empty state. Don't show a blank table.</p>
+
+    <h3>List Rendering</h3>
+    <pre><code>{students.map((student, index) => (
+  &lt;tr key={student.id}&gt;
+    &lt;td&gt;{index + 1}&lt;/td&gt;
+    &lt;td&gt;{student.name}&lt;/td&gt;
+    ...
+  &lt;/tr&gt;
+))}</code></pre>
+
+    <h3>What is the <code>key</code> prop?</h3>
+    <p>React uses <code>key</code> to identify which list items changed. Rules: must be <strong>unique</strong>, must be
+        <strong>stable</strong> (don't use array index if items reorder). We use <code>student.id</code>.</p>
+
+    <h3>Lifting State Up</h3>
+    <pre><code>&lt;button onClick={() => onEdit(student)}&gt;Edit&lt;/button&gt;
+&lt;button onClick={() => onDelete(student)}&gt;Delete&lt;/button&gt;</code></pre>
+    <p>The table doesn't handle logic — it calls parent callbacks via props. Parent manages state, children display and
+        report events.</p>
+
+    <hr>
+
+    <div class="file-header">📄 components/ConfirmDialog.tsx — Delete Confirmation</div>
+
+    <pre><code>&lt;div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"&gt;</code></pre>
+
+    <table>
+        <tr>
+            <th>Class</th>
+            <th>What it does</th>
+        </tr>
+        <tr>
+            <td><code>fixed</code></td>
+            <td>Position relative to viewport</td>
+        </tr>
+        <tr>
+            <td><code>inset-0</code></td>
+            <td>top/right/bottom/left: 0 — covers entire screen</td>
+        </tr>
+        <tr>
+            <td><code>bg-black bg-opacity-50</code></td>
+            <td>Semi-transparent dark overlay</td>
+        </tr>
+        <tr>
+            <td><code>flex items-center justify-center</code></td>
+            <td>Centers the dialog box</td>
+        </tr>
+        <tr>
+            <td><code>z-50</code></td>
+            <td>Sits above everything else</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <div class="file-header">📄 components/SearchBar.tsx — Controlled Input</div>
+
+    <pre><code>function SearchBar({ value, onChange }: SearchBarProps) {
+  return (
+    &lt;input value={value} onChange={(e) => onChange(e.target.value)} /&gt;
+  )
+}</code></pre>
+
+    <h3>What is a controlled component?</h3>
+    <p><strong>Controlled</strong>: React state drives the input's value. Changes go through onChange → parent updates
+        state → re-render.</p>
+    <p><strong>Uncontrolled</strong>: Input manages its own value (using <code>ref</code>). We use controlled for
+        predictability.</p>
+
+    <hr>
+
+    <div class="file-header">📄 utils/exportExcel.ts — Excel Export</div>
+
+    <pre><code>export function exportToExcel(students: Student[], filename = 'students'): void {
+  // 1. Map to clean objects (keys become column headers)
+  const data = students.map((s) => ({ Name: s.name, Email: s.email, Age: s.age }))
+
+  // 2. Create worksheet and workbook
+  const worksheet = XLSX.utils.json_to_sheet(data)
+  const workbook = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Students')
+
+  // 3. Write as ArrayBuffer with correct MIME type
+  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' })
+  const blob = new Blob([excelBuffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  })
+
+  // 4. Trigger download via hidden anchor
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `${filename}.xlsx`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}</code></pre>
+
+    <h3>Step by step:</h3>
+    <ol>
+        <li><strong>Map data</strong> → capitalized keys become column headers in Excel</li>
+        <li><strong>json_to_sheet</strong> → converts array to Excel worksheet</li>
+        <li><strong>book_new + book_append_sheet</strong> → creates workbook with sheet</li>
+        <li><strong>XLSX.write</strong> → outputs as ArrayBuffer (raw binary)</li>
+        <li><strong>new Blob</strong> → wraps with correct MIME type so OS knows it's an Excel file</li>
+        <li><strong>URL.createObjectURL</strong> → temporary URL pointing to the blob</li>
+        <li><strong>Hidden anchor trick</strong> → creates &lt;a&gt;, sets download attribute, clicks programmatically
+        </li>
+        <li><strong>Cleanup</strong> → removes link and revokes URL</li>
+    </ol>
+
+    <h3>What is a Blob?</h3>
+    <p><strong>Blob</strong> (Binary Large Object) = raw data. The MIME type tells browser/Excel what the file format
+        is.</p>
+
+    <blockquote>"I use xlsx to convert arrays into Excel worksheets. I create a Blob with the correct MIME type and
+        trigger a programmatic download instead of using writeFile(), which can have MIME issues."</blockquote>
+
+    <hr>
+
+    <div class="file-header">📄 services/studentApi.ts — API Client (Optional)</div>
+
+    <pre><code>export async function fetchStudents(): Promise&lt;Student[]&gt; {
+  try {
+    const res = await fetch(API_URL)
+    if (!res.ok) throw new Error('API error')
+    const data = await res.json()
+    saveToLocalStorage(data)  // cache
+    return data
+  } catch (err) {
+    return loadFromLocalStorage()  // fallback
+  }
+}</code></pre>
+
+    <h3>What is async/await?</h3>
+    <ul>
+        <li><code>async</code> → function returns a Promise</li>
+        <li><code>await</code> → pauses until Promise resolves</li>
+        <li>Without this, you'd use <code>.then().catch()</code> chains</li>
+    </ul>
+
+    <h3>Fallback pattern</h3>
+    <p>Try API first. If fails → fall back to localStorage. App works <strong>even without backend</strong>.</p>
+
+    <hr>
+
+    <h1>PART 3: BACKEND — FILE BY FILE</h1>
+
+    <h2>Backend Folder Structure</h2>
+    <pre><code>backend/
+├── src/
+│   ├── controllers/
+│   │   └── studentController.ts    ← CRUD logic
+│   ├── routes/
+│   │   └── studentRoutes.ts        ← URL → handler mapping
+│   ├── schemas/
+│   │   └── studentSchema.ts        ← Zod validation
+│   ├── types/
+│   │   └── student.ts              ← TypeScript types
+│   └── index.ts                    ← Express server
+├── prisma/
+│   ├── schema.prisma               ← database model
+│   └── seed.ts                     ← seed script
+├── .env                            ← database URL
+└── package.json</code></pre>
+
+    <hr>
+
+    <div class="file-header">📄 src/index.ts — Express Server</div>
+
+    <pre><code>import express from 'express'
+import cors from 'cors'
+import studentRoutes from './routes/studentRoutes'
+
+const app = express()
+const PORT = process.env.PORT || 5000
+
+app.use(cors())              // allow cross-origin requests
+app.use(express.json())      // parse JSON bodies
+app.use('/api/students', studentRoutes)
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`)
+})</code></pre>
+
+    <h3>What is Express?</h3>
+    <p>Minimal web framework for Node.js that handles HTTP requests and responses.</p>
+
+    <h3>What is middleware?</h3>
+    <table>
+        <tr>
+            <th>Middleware</th>
+            <th>What it does</th>
+        </tr>
+        <tr>
+            <td><code>cors()</code></td>
+            <td>Allows frontend (port 5173) to call backend (port 5000)</td>
+        </tr>
+        <tr>
+            <td><code>express.json()</code></td>
+            <td>Parses JSON request bodies → accessible via <code>req.body</code></td>
+        </tr>
+    </table>
+
+    <h3>What is CORS?</h3>
+    <p><strong>Cross-Origin Resource Sharing</strong>. Browsers block requests between different origins by default.
+        CORS sends headers saying "allow this."</p>
+
+    <blockquote>"The Express server uses two middlewares: cors() to allow the frontend to make API calls across ports,
+        and express.json() to parse JSON bodies. Routes are mounted at /api/students."</blockquote>
+
+    <hr>
+
+    <div class="file-header">📄 src/routes/studentRoutes.ts — RESTful Routes</div>
+
+    <pre><code>router.get('/', getAllStudents)        // GET    /api/students
+router.post('/', createStudent)       // POST   /api/students
+router.put('/:id', updateStudent)     // PUT    /api/students/3
+router.delete('/:id', deleteStudent)  // DELETE /api/students/3</code></pre>
+
+    <h3>What is REST?</h3>
+    <p><strong>REST</strong> = Representational State Transfer. Same URL with different HTTP methods does different
+        things:</p>
+    <ul>
+        <li><code>GET</code> = read</li>
+        <li><code>POST</code> = create</li>
+        <li><code>PUT</code> = update</li>
+        <li><code>DELETE</code> = delete</li>
+    </ul>
+
+    <h3>What is <code>:id</code>?</h3>
+    <p>A <strong>route parameter</strong>. Express captures the value: <code>/api/students/5</code> →
+        <code>req.params.id = "5"</code></p>
+
+    <hr>
+
+    <div class="file-header">📄 src/schemas/studentSchema.ts — Zod Validation</div>
+
+    <pre><code>import { z } from 'zod'
+
+export const createStudentSchema = z.object({
+  name: z.string().min(1, 'Name is required').max(100),
+  email: z.string().min(1, 'Email is required').email('Valid email required'),
+  age: z.number().int().min(1).max(120),
+})
+
+export const updateStudentSchema = createStudentSchema.partial()
+
+export type CreateStudentInput = z.infer&lt;typeof createStudentSchema&gt;
+export type UpdateStudentInput = z.infer&lt;typeof updateStudentSchema&gt;</code></pre>
+
+    <h3>What is Zod?</h3>
+    <p>TypeScript-first schema validation library. Defines rules and validates at <strong>runtime</strong>.</p>
+
+    <h3>Why not just TypeScript types?</h3>
+    <p>TS types only exist at <strong>compile time</strong> — erased when code runs. Someone could send
+        <code>{ name: 123 }</code> and TS wouldn't stop it. Zod validates at <strong>runtime</strong>.</p>
+
+    <h3>What is <code>z.infer</code>?</h3>
+    <p>Automatically creates a TypeScript type from the Zod schema. No need to define the type separately.</p>
+
+    <h3>What is <code>.partial()</code>?</h3>
+    <p>Makes all fields optional. Used for updates where you might only want to change one field.</p>
+
+    <h3>What is <code>safeParse()</code>?</h3>
+    <pre><code>const parsed = createStudentSchema.safeParse(req.body)
+if (!parsed.success) {
+  res.status(400).json({ error: parsed.error.errors[0].message })
+  return
+}</code></pre>
+    <p>Returns <code>{ success: true, data }</code> or <code>{ success: false, error }</code> without throwing. Safer
+        than <code>.parse()</code>.</p>
+
+    <blockquote>"I use Zod for runtime validation because TypeScript types are erased at runtime. Zod defines validation
+        rules like min length, email format, numeric ranges. safeParse validates without throwing exceptions."
+    </blockquote>
+
+    <hr>
+
+    <div class="file-header">📄 src/controllers/studentController.ts — CRUD Handlers</div>
+
+    <pre><code>export const createStudent = async (req: Request, res: Response) => {
+  try {
+    // 1. Validate with Zod
+    const parsed = createStudentSchema.safeParse(req.body)
+    if (!parsed.success) {
+      res.status(400).json({ error: parsed.error.errors[0].message })
+      return
+    }
+
+    // 2. Database operation with Prisma
+    const { name, email, age } = parsed.data
+    const student = await prisma.student.create({
+      data: { name, email, age },
+    })
+
+    // 3. Send response
+    res.status(201).json(student)
+  } catch (error: any) {
+    // 4. Handle specific Prisma errors
+    if (error.code === 'P2002') {
+      res.status(400).json({ error: 'Email already exists' })
+      return
+    }
+    res.status(500).json({ error: 'Failed to create student' })
+  }
+}</code></pre>
+
+    <h3>HTTP Status Codes</h3>
+    <table>
+        <tr>
+            <th>Code</th>
+            <th>Meaning</th>
+            <th>When used</th>
+        </tr>
+        <tr>
+            <td><strong>200</strong></td>
+            <td>OK</td>
+            <td>Successful GET, PUT, DELETE</td>
+        </tr>
+        <tr>
+            <td><strong>201</strong></td>
+            <td>Created</td>
+            <td>Successful POST</td>
+        </tr>
+        <tr>
+            <td><strong>400</strong></td>
+            <td>Bad Request</td>
+            <td>Validation error, duplicate email</td>
+        </tr>
+        <tr>
+            <td><strong>404</strong></td>
+            <td>Not Found</td>
+            <td>Student ID doesn't exist</td>
+        </tr>
+        <tr>
+            <td><strong>500</strong></td>
+            <td>Server Error</td>
+            <td>Database crash, unexpected error</td>
+        </tr>
+    </table>
+
+    <h3>Prisma Error Codes</h3>
+    <table>
+        <tr>
+            <th>Code</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td><code>P2002</code></td>
+            <td>Unique constraint violation (duplicate email)</td>
+        </tr>
+        <tr>
+            <td><code>P2025</code></td>
+            <td>Record not found (invalid ID)</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <div class="file-header">📄 prisma/schema.prisma — Database Model</div>
+
+    <pre><code>datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  age       Int
+  createdAt DateTime @default(now())
+}</code></pre>
+
+    <h3>Annotations explained:</h3>
+    <table>
+        <tr>
+            <th>Annotation</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td><code>@id</code></td>
+            <td>Primary key</td>
+        </tr>
+        <tr>
+            <td><code>@default(autoincrement())</code></td>
+            <td>Auto-generates 1, 2, 3...</td>
+        </tr>
+        <tr>
+            <td><code>@unique</code></td>
+            <td>No duplicates allowed</td>
+        </tr>
+        <tr>
+            <td><code>@default(now())</code></td>
+            <td>Auto-set to current timestamp</td>
+        </tr>
+    </table>
+
+    <h3>What is Prisma?</h3>
+    <p>An <strong>ORM</strong> that translates TypeScript code to SQL:</p>
+    <pre><code>// Your code:
+prisma.student.findMany({ orderBy: { createdAt: 'desc' } })
+
+// Generated SQL:
+SELECT * FROM "Student" ORDER BY "createdAt" DESC</code></pre>
+
+    <blockquote>"Prisma gives me type-safe database queries. I define my model in schema.prisma, run prisma migrate to
+        create tables, and prisma generate to create a typed client with full autocomplete."</blockquote>
+
+    <hr>
+
+    <h1>PART 4: KEY CONCEPTS CHEAT SHEET</h1>
+
+    <h2>React Concepts</h2>
+    <table>
+        <tr>
+            <th>Concept</th>
+            <th>Where</th>
+            <th>Explanation</th>
+        </tr>
+        <tr>
+            <td><strong>useState</strong></td>
+            <td>App.tsx, StudentForm</td>
+            <td>Component-level state</td>
+        </tr>
+        <tr>
+            <td><strong>useEffect</strong></td>
+            <td>App.tsx, StudentForm</td>
+            <td>Side effects (load data, persist)</td>
+        </tr>
+        <tr>
+            <td><strong>Props</strong></td>
+            <td>All children</td>
+            <td>Data + callbacks from parent</td>
+        </tr>
+        <tr>
+            <td><strong>Conditional rendering</strong></td>
+            <td>App.tsx</td>
+            <td>if/ternary to show/hide JSX</td>
+        </tr>
+        <tr>
+            <td><strong>List rendering</strong></td>
+            <td>StudentTable</td>
+            <td>.map() with key prop</td>
+        </tr>
+        <tr>
+            <td><strong>Controlled inputs</strong></td>
+            <td>StudentForm</td>
+            <td>State drives input value</td>
+        </tr>
+        <tr>
+            <td><strong>Lifting state up</strong></td>
+            <td>App → children</td>
+            <td>State in parent, callbacks in children</td>
+        </tr>
+        <tr>
+            <td><strong>Derived state</strong></td>
+            <td>filteredStudents</td>
+            <td>Computed, not stored</td>
+        </tr>
+    </table>
+
+    <h2>TypeScript Concepts</h2>
+    <table>
+        <tr>
+            <th>Concept</th>
+            <th>Example</th>
+            <th>Why</th>
+        </tr>
+        <tr>
+            <td><strong>Interfaces</strong></td>
+            <td>Student, Props</td>
+            <td>Define object shapes</td>
+        </tr>
+        <tr>
+            <td><strong>Generics</strong></td>
+            <td>useState&lt;Student[]&gt;</td>
+            <td>Type-safe state</td>
+        </tr>
+        <tr>
+            <td><strong>Union types</strong></td>
+            <td>Student | null</td>
+            <td>Multiple possible types</td>
+        </tr>
+        <tr>
+            <td><strong>Record</strong></td>
+            <td>Record&lt;string, string&gt;</td>
+            <td>Typed key-value objects</td>
+        </tr>
+        <tr>
+            <td><strong>import type</strong></td>
+            <td>import type { Student }</td>
+            <td>Type-only import</td>
+        </tr>
+        <tr>
+            <td><strong>Optional</strong></td>
+            <td>createdAt?: string</td>
+            <td>Field might not exist</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h1>PART 5: COMMON INTERVIEW QUESTIONS</h1>
+
+    <h3>Q: "Why React instead of Angular/Vue?"</h3>
+    <blockquote>"React is the most adopted UI library with the largest ecosystem. Component-based, virtual DOM for
+        performance, great TypeScript support."</blockquote>
+
+    <h3>Q: "Why Vite instead of Create React App?"</h3>
+    <blockquote>"CRA is no longer maintained. Vite uses native ES modules for instant hot reload and Rollup for
+        optimized builds."</blockquote>
+
+    <h3>Q: "Why localStorage instead of a database?"</h3>
+    <blockquote>"For a frontend assignment, localStorage provides persistence without backend setup. The architecture
+        lets us switch to API calls by just changing the data source."</blockquote>
+
+    <h3>Q: "Why Tailwind instead of regular CSS?"</h3>
+    <blockquote>"Tailwind lets me style in JSX without switching files. Utility-first approach: compose classes like
+        bg-blue-600 text-white px-4."</blockquote>
+
+    <h3>Q: "How does search filtering work?"</h3>
+    <blockquote>"It's a derived value — computed from students and searchQuery on every render. Case-insensitive
+        matching on name and email."</blockquote>
+
+    <h3>Q: "How would you scale this?"</h3>
+    <blockquote>"Add React Query for data fetching with caching, pagination, authentication, Zustand for global state if
+        multi-page."</blockquote>
+
+    <h3>Q: "Why Zod instead of manual validation?"</h3>
+    <blockquote>"Zod gives declarative validation with auto-generated types via z.infer. TypeScript types are
+        compile-time only — Zod validates at runtime."</blockquote>
+
+    <h3>Q: "How does the Excel export work?"</h3>
+    <blockquote>"I use xlsx to create worksheets from JSON, write to ArrayBuffer, wrap in a Blob with correct MIME type,
+        and trigger download via a hidden anchor element."</blockquote>
+
+    <h3>Q: "Why Prisma instead of raw SQL?"</h3>
+    <blockquote>"Prisma provides type-safe queries with autocomplete, automatic migrations, and catches schema
+        mismatches at compile time."</blockquote>
+
+    <h3>Q: "What is the difference between PUT and PATCH?"</h3>
+    <blockquote>"PUT replaces the entire resource. PATCH updates specific fields. I used PUT since we send all fields in
+        the update form."</blockquote>
+
+    <hr>
+
+    <h1>PART 6: HOW TO RUN</h1>
+
+    <h2>Frontend</h2>
+    <pre><code>cd student-crud-app
+npm install
+npm run dev        → opens at http://localhost:5173</code></pre>
+
+    <h2>Backend (Optional)</h2>
+    <pre><code>cd student-crud-app/backend
+npm install
+# Set DATABASE_URL in .env
+npx prisma migrate dev --name init
+npx prisma generate
+npm run seed       → populates sample data
+npm run dev        → API at http://localhost:5000</code></pre>
+
+    <h2>Deploy</h2>
+    <table>
+        <tr>
+            <th>Part</th>
+            <th>Platform</th>
+            <th>Steps</th>
+        </tr>
+        <tr>
+            <td>Frontend</td>
+            <td>Vercel</td>
+            <td>Push to GitHub → Import in Vercel → Deploy</td>
+        </tr>
+        <tr>
+            <td>Backend</td>
+            <td>Railway/Render</td>
+            <td>Connect repo → Add PostgreSQL → Set DATABASE_URL</td>
+        </tr>
+    </table>
+
+    <hr>
+    <p style="text-align: center; color: #666; margin-top: 40px;">
+        <em>📚 Student CRUD App — Interview Guide • Built with React + TypeScript + Express + Prisma</em>
+    </p>
+
+</body>
+
+</html>
